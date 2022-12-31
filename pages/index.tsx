@@ -1,13 +1,13 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import WeatherApp from "../components/WeatherApp";
-import { weatherType } from "./interfaces";
+import { weatherType } from "../interfaces_&_funcs/interfaces";
 import { useEffect, useState } from "react";
 import {
   initDataFetch,
   getWeatherData,
   getNewWeather,
-} from "./data_fetch_funcs";
+} from "../interfaces_&_funcs/data_fetch_funcs";
 
 export const getStaticProps: GetStaticProps = async () => {
   const locationInfo = await initDataFetch();

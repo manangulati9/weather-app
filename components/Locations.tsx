@@ -3,7 +3,7 @@ export default function (props: {
   setlocation: Dispatch<SetStateAction<string>>;
 }) {
   return (
-    <div className="m-5 w-72">
+    <div className="px-6">
       <div>
         <button
           className="my-2"

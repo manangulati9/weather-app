@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction, useRef } from "react";
-
+import Image from "next/image";
 export default function (props: {
   setlocation: Dispatch<SetStateAction<string>>;
 }) {
-  const inputRef = useRef(null);
+  const inputRef = useRef<any>();
   return (
-    <div className="w-72 flex justify-between">
-      <div className="mx-5 mt-5 mb-1 ">
+    <div className="flex justify-between w-auto gap-3">
+      <div className="mt-5 mb-1 px-6">
         <input
-          className="bg-transparent px-2 pt-3"
+          className="bg-transparent pt-3 w-48 focus:outline-none placeholder:text-white/90"
           type="search"
           placeholder="Another Location"
           ref={inputRef}
@@ -17,12 +17,14 @@ export default function (props: {
       </div>
       <button
         onClick={() => {
-          const newLoc = inputRef.current!.value.toLowerCase();
-          props.setlocation(newLoc);
+          if (inputRef.current !== null) {
+            const newLoc = inputRef.current.value.toLowerCase();
+            props.setlocation(newLoc);
+          }
         }}
-        className="bg-orange-500 px-3"
+        className="bg-gray-500 px-6"
       >
-        Search
+        <Image src="/search.png" alt="search" width={20} height={20} />
       </button>
     </div>
   );

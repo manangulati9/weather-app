@@ -7,22 +7,28 @@ interface overviewPropTypes {
 
 export default function ({ temp, name, mainWeather, icon }: overviewPropTypes) {
   return (
-    <div className="text-white min-h-screen ml-8">
-      <div className="m-3">the.weather</div>
-      <div className="mt-[32rem]">
-        <div className="flex items-center gap-4">
-          <div className="text-[85px]">{temp.toFixed()}°</div>
-          <div>
-            <div className="text-[26px] font-semibold">{name}</div>
-            <div className="flex text-[13px]">
-              <GetTime /> -
-              <GetDateDay />
-            </div>
+    <div className="sm:ml-24 sm:my-12 flex flex-col justify-between">
+      <div>the.weather</div>
+      <div className="flex sm:gap-5 sm:flex-row flex-col text-center items-center">
+        <div className="sm:text-[95px] text-[80px] font-semibold ">
+          {temp.toFixed()}°
+        </div>
+        <div>
+          <div className="text-[26px] font-semibold sm:text-left text-center">
+            {name}
           </div>
-          <div className="flex-col text-[13px]">
-            <div>{icon}</div>
-            <div>{mainWeather}</div>
+          <div className="flex sm:justify-between gap-3 justify-center ">
+            <GetTime />
+            <GetDateDay />
           </div>
+        </div>
+        <div className="flex flex-col flex-1 sm:ml-2 sm:mb-5">
+          <img
+            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+            alt={icon}
+            className="h-14 w-14"
+          />
+          <div>{mainWeather}</div>
         </div>
       </div>
     </div>

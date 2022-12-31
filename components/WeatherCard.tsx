@@ -1,5 +1,5 @@
 import OtherDetails from "./OtherDetails";
-import { weatherType } from "../pages/interfaces";
+import { weatherType } from "../interfaces_&_funcs/interfaces";
 import WeatherDetails from "./WeatherDetails";
 import Locations from "./Locations";
 import SearchBar from "./SearchBar";
@@ -10,12 +10,12 @@ export default function (props: {
   setlocation: Dispatch<SetStateAction<string>>;
 }) {
   return (
-    <div className="text-white backdrop-blur-lg">
+    <div className="backdrop-blur-md flex flex-col gap-6">
       <SearchBar setlocation={props.setlocation} />
       <Locations setlocation={props.setlocation} />
-      <hr className="mx-5" />
+      <hr className="mx-6" />
       <WeatherDetails weatherData={props.weatherData} />
-      <hr className="mx-5" />
+      <hr className="mx-6" />
       <OtherDetails weatherData={props.weatherData} />
     </div>
   );

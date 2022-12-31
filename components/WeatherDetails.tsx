@@ -1,8 +1,8 @@
-import { weatherType } from "../pages/interfaces";
+import { weatherType } from "../interfaces_&_funcs/interfaces";
 
 export default function (props: { weatherData: weatherType }) {
   return (
-    <div className="text-white m-5 w-72">
+    <div className="px-6">
       <div>Weather Details</div>
       <div className="mt-8">
         <div className="flex justify-between my-3">
