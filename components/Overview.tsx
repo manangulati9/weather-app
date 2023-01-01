@@ -1,34 +1,28 @@
-interface overviewPropTypes {
-  temp: number;
-  name: string;
-  mainWeather: string;
-  icon: string;
-}
+import { weatherType } from "../interfaces_&_funcs/interfaces";
 
-export default function ({ temp, name, mainWeather, icon }: overviewPropTypes) {
+export default function (props: { weatherData: weatherType }) {
   return (
     <div className="sm:ml-24 sm:my-12 flex flex-col justify-between">
       <div>the.weather</div>
       <div className="flex sm:gap-5 sm:flex-row flex-col text-center items-center">
         <div className="sm:text-[95px] text-[80px] font-semibold ">
-          {temp.toFixed()}°
+          {props.weatherData.main.temp.toFixed()}°
         </div>
         <div>
           <div className="text-[26px] font-semibold sm:text-left text-center">
-            {name}
+            {props.weatherData.name}
           </div>
-          <div className="flex sm:justify-between gap-3 justify-center ">
-            <GetTime />
-            <GetDateDay />
+          <div className="flex sm:justify-between gap-1 justify-center ">
+            <GetTime />-<GetDateDay />
           </div>
         </div>
         <div className="flex flex-col flex-1 sm:ml-2 sm:mb-5">
           <img
-            src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
-            alt={icon}
+            src={`https://openweathermap.org/img/wn/${props.weatherData.weather[0].icon}@2x.png`}
+            alt={props.weatherData.weather[0].icon}
             className="h-14 w-14"
           />
-          <div>{mainWeather}</div>
+          <div>{props.weatherData.weather[0].main}</div>
         </div>
       </div>
     </div>
@@ -38,6 +32,9 @@ export default function ({ temp, name, mainWeather, icon }: overviewPropTypes) {
 const getDay = (): string | undefined => {
   const day = new Date().getDay();
   switch (day) {
+    case 0:
+      return "Sunday";
+      break;
     case 1:
       return "Monday";
       break;
@@ -56,9 +53,6 @@ const getDay = (): string | undefined => {
     case 6:
       return "Saturday";
       break;
-    case 7:
-      return "Sunday";
-      break;
     default:
       return undefined;
       break;
@@ -66,7 +60,7 @@ const getDay = (): string | undefined => {
 };
 
 const getMonth = (): string => {
-  const date = new Date(2009, 10, 10); // 2009-11-10
+  const date = new Date();
   const month = date.toLocaleString("default", { month: "long" });
   return month;
 };

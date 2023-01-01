@@ -13,12 +13,7 @@ export default function (props: {
       <BackgroundPage
         weather={props.weatherData.weather[0].main.toLowerCase()}
       />
-      <Overview
-        temp={props.weatherData.main.temp}
-        name={props.weatherData.name}
-        mainWeather={props.weatherData.weather[0].main}
-        icon={props.weatherData.weather[0].icon}
-      />
+      <Overview weatherData={props.weatherData} />
       <Card {...props} />
     </div>
   );
