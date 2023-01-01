@@ -24,7 +24,7 @@ export default function ({ temp, name, mainWeather, icon }: overviewPropTypes) {
         </div>
         <div className="flex flex-col flex-1 sm:ml-2 sm:mb-5">
           <img
-            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+            src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
             alt={icon}
             className="h-14 w-14"
           />
