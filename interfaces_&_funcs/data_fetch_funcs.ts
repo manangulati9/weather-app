@@ -2,14 +2,14 @@ import { locInfoType, weatherType } from "./interfaces";
 
 export const initDataFetch = async () => {
   const locData = await fetch(
-    "http://api.openweathermap.org/geo/1.0/direct?q=london&limit=1&appid=47f8de715097b1fb3ea299d7bf6bf53d"
+    "https://api.openweathermap.org/geo/1.0/direct?q=london&limit=1&appid=47f8de715097b1fb3ea299d7bf6bf53d"
   );
   const locationInfo: locInfoType[] = await locData.json();
   return locationInfo;
 };
 const getLocationInfo = async (location: string) => {
   const locData = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=47f8de715097b1fb3ea299d7bf6bf53d`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=47f8de715097b1fb3ea299d7bf6bf53d`
   );
   const locationInfo: locInfoType[] = await locData.json();
   return locationInfo;
