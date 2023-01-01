@@ -1,29 +1,30 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import WeatherApp from "../components/WeatherApp";
-import { weatherType } from "../interfaces_&_funcs/interfaces";
+import { dateTimeType, weatherType } from "../interfaces_&_funcs/interfaces";
 import { useEffect, useState } from "react";
-import {
-  initDataFetch,
-  getWeatherData,
-  getNewWeather,
-} from "../interfaces_&_funcs/data_fetch_funcs";
+import { getNewData } from "../interfaces_&_funcs/data_fetch_funcs";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const locationInfo = await initDataFetch();
-  const initWeatherData = await getWeatherData(locationInfo);
+  const initData = await getNewData("london");
   return {
     props: {
-      initWeatherData,
+      initData,
     },
   };
 };
 
-export default function Home(props: { initWeatherData: weatherType }) {
+export default function Home(props: {
+  initData: { weatherData: weatherType; dateTimeData: dateTimeType };
+}) {
   const [location, setlocation] = useState("london");
-  const [weatherData, setWeatherData] = useState(props.initWeatherData);
+  const [weatherData, setWeatherData] = useState(props.initData.weatherData);
+  const [dateTimeData, setdateTimeData] = useState(props.initData.dateTimeData);
   useEffect(() => {
-    getNewWeather(location).then((res) => setWeatherData(res));
+    getNewData(location).then((res) => {
+      setWeatherData(res.weatherData);
+      setdateTimeData(res.dateTimeData);
+    });
   }, [location]);
   return (
     <>
@@ -35,6 +36,7 @@ export default function Home(props: { initWeatherData: weatherType }) {
       </Head>
       <WeatherApp
         weatherData={weatherData}
+        dateTimeData={dateTimeData}
         setlocation={(loc) => {
           setlocation(loc);
         }}

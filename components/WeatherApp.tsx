@@ -1,11 +1,12 @@
 import Overview from "./Overview";
 import Card from "./WeatherCard";
-import { weatherType } from "../interfaces_&_funcs/interfaces";
+import { dateTimeType, weatherType } from "../interfaces_&_funcs/interfaces";
 import { Dispatch, SetStateAction } from "react";
 import BackgroundPage from "./Background";
 
 export default function (props: {
   weatherData: weatherType;
+  dateTimeData: dateTimeType;
   setlocation: Dispatch<SetStateAction<string>>;
 }) {
   return (
@@ -13,7 +14,10 @@ export default function (props: {
       <BackgroundPage
         weather={props.weatherData.weather[0].main.toLowerCase()}
       />
-      <Overview weatherData={props.weatherData} />
+      <Overview
+        weatherData={props.weatherData}
+        dateTimeData={props.dateTimeData}
+      />
       <Card {...props} />
     </div>
   );

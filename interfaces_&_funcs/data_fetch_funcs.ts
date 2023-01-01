@@ -1,28 +1,32 @@
-import { locInfoType, weatherType } from "./interfaces";
+import { dateTimeType, locInfoType, weatherType } from "./interfaces";
 
-export const initDataFetch = async () => {
-  const locData = await fetch(
-    "https://api.openweathermap.org/geo/1.0/direct?q=london&limit=1&appid=47f8de715097b1fb3ea299d7bf6bf53d"
-  );
-  const locationInfo: locInfoType[] = await locData.json();
-  return locationInfo;
-};
 const getLocationInfo = async (location: string) => {
-  const locData = await fetch(
+  const locDataResponse = await fetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=47f8de715097b1fb3ea299d7bf6bf53d`
   );
-  const locationInfo: locInfoType[] = await locData.json();
-  return locationInfo;
+  const locData: locInfoType[] = await locDataResponse.json();
+  return locData;
 };
-export async function getWeatherData(locationInfo: locInfoType[]) {
-  const currentWeatherData = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${locationInfo[0].lat}&lon=${locationInfo[0].lon}&appid=47f8de715097b1fb3ea299d7bf6bf53d&units=metric`
+async function getWeatherData(locData: locInfoType[]) {
+  const weatherDataResponse = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${locData[0].lat}&lon=${locData[0].lon}&appid=47f8de715097b1fb3ea299d7bf6bf53d&units=metric`
   );
-  const initWeatherData: weatherType = await currentWeatherData.json();
-  return initWeatherData;
+  const weatherData: weatherType = await weatherDataResponse.json();
+  return weatherData;
 }
-export const getNewWeather = async (location: string) => {
-  const locationInfo = await getLocationInfo(location);
-  const initWeatherData = await getWeatherData(locationInfo);
-  return initWeatherData;
+const getDateTime = async (lat: number, lon: number) => {
+  const dateTimeRespone = await fetch(
+    `https://api.timezonedb.com/v2.1/get-time-zone?key=RL2PWSWKLE8K&format=json&by=position&lat=${lat}&lng=${lon}`
+  );
+  const dateTimeData: dateTimeType = await dateTimeRespone.json();
+  return dateTimeData;
+};
+export const getNewData = async (location: string) => {
+  const locData = await getLocationInfo(location);
+  const weatherData = await getWeatherData(locData);
+  const dateTimeData = await getDateTime(
+    weatherData.coord.lat,
+    weatherData.coord.lon
+  );
+  return { weatherData, dateTimeData };
 };
